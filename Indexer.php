@@ -1,5 +1,7 @@
 <?php
 
+namespace Tvswe\Indexer;
+
 class Indexer implements \Serializable
 {
     protected $callables = [];
@@ -24,6 +26,10 @@ class Indexer implements \Serializable
         $this->rebuild();
     }
 
+    /**
+     * Calls the callbacks to load the given or all result sets
+     * @param int $set
+     */
     public function rebuild($set = 0)
     {
         if(array_key_exists($set, $this->callables)) {
@@ -39,6 +45,10 @@ class Indexer implements \Serializable
         throw new \UnexpectedValueException('Index not valid!');
     }
 
+    /**
+     * Returns the given result set
+     * @param int $set
+     */
     public function getResult($set = 0) {
         if(!$set) {
             return call_user_func_array('array_merge', $this->index);
